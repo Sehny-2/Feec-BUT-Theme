@@ -5,6 +5,16 @@
 \usepackage{fontspec}
 \defaultfontfeatures{Ligatures=TeX}
 
+% define new commands needed for thesis presentation
+% Supervisor text
+\newcommand{\garanttext}{Vedouc\'{i} pr\'{a}ce:}
+% Author text
+\newcommand{\autortext}{Autor pr\'{a}ce:}
+
+% Supervisor name
+\def\garant#1{\gdef\@garant{#1}}
+\def\@garant{\@latex@warning@no@line{Nezadan vedouci \noexpand\garant}}
+
 % define colours
 % taken from pickton on Adobe Kuler:
 % https://kuler.adobe.com/Some-Kind-Of-Execushares-color-theme-3837185/
@@ -13,6 +23,9 @@
 \definecolor{ExecusharesBlue}{RGB}{22,190,207}
 \definecolor{ExecusharesWhite}{RGB}{255,255,243}
 \definecolor{ExecusharesGrey}{RGB}{107,110,108}
+
+% define colors according to logo of the faculty
+\definecolor{FeecLogoBlue}{RGB}{0,106,182}
 
 % use Adobe's Source Pro fonts:
 % Source Serif Pro: http://store1.adobe.com/cfusion/store/html/index.cfm?store=OLS-US&event=displayFontPackage&code=1966
@@ -109,20 +122,31 @@
 		\ifnum\thepage=1\relax
 			% the title page
 			% draw the fills
-			\fill[color=ExecusharesRed] (0, 4cm) rectangle(12.8cm, 9.6cm);
+			    
+			% blue rectangle around thesis title
+			\fill[color=ExecusharesWhite] (0cm, 1cm) rectangle(12.8cm, 9.8cm);
+			\fill[color=FeecLogoBlue] (0cm, 3.5cm) rectangle(12.8cm, 6.1cm);
+			
+			% logo of faculty
+			\node[anchor=north west] at (1cm,9.5cm) {\includegraphics[width=3cm]{feec_logo.eps}};
 
 			% draw the actual text
-			\node[anchor=south,text width=11.8cm,inner xsep=0.5cm] at (6.4cm,4cm) {\color{ExecusharesWhite}\Huge\textbf{\inserttitle}};
-			\node[anchor=north east,text width=11.8cm,align=right] at (12.3cm,4cm) {\color{ExecusharesBlack}\tiny\insertsubtitle};
-			\node[above] at(6.4cm,2.25cm) {\color{ExecusharesBlack}\tiny by};
-			\node at (6.4cm,2cm) {\color{ExecusharesBlack}\LARGE\insertauthor};
+			\node[anchor=south,text width=11.8cm,inner xsep=0.5cm] at (6.4cm,3.5cm) {\color{ExecusharesWhite}\Huge\textbf{\inserttitle}};
+			\node[anchor=north east,text width=11.8cm,align=center] at (12.3cm,3cm) {\color{ExecusharesBlack}\insertsubtitle};
+			%\node[above] at(6.4cm,2.25cm) {\color{ExecusharesBlack}\tiny by};
+			%\node[anchor=north east,text width=11.8cm,align=left] at (12.3cm,3.5cm)
+			%{\color{ExecusharesBlack}\autortext \insertauthor \\ ~ \\ \garanttext \@garant};
+			\node[anchor=north west,align=left] at (1cm,2cm) {\color{ExecusharesBlack}\autortext};
+			\node[anchor=north west,align=left] at (4cm,2cm) {\color{ExecusharesBlack}\insertauthor};
+			\node[anchor=north west,align=left] at (1cm,1.5cm) {\color{ExecusharesBlack}\garanttext};
+			\node[anchor=north west,align=left] at (4cm,1.5cm) {\color{ExecusharesBlack}\@garant};
 
 			% add the date in the corner
-			\node[anchor=south east] at(12.8cm,0cm) {\color{ExecusharesGrey}\tiny\insertdate};
+			\node[anchor=south east] at(12.8cm,0cm) {\color{ExecusharesGrey}\tiny\insertdate};	
 		\else
 			% NOT the title page
 			% title bar
-			\fill[color=ExecusharesRed] (0, 8.6cm) rectangle(12.8cm,9.6cm);
+			\fill[color=FeecLogoBlue] (0, 8.6cm) rectangle(12.8cm,9.6cm);
 
 			% swap the comment on these to add section titles to slide titles
 			%\node[anchor=north,text width=11.8cm,inner xsep=0.5cm,inner ysep=0.25cm] at (6.4cm,9.6cm) {\color{ExecusharesWhite}\Large\textbf{\insertsectionhead: \insertframetitle}};
@@ -133,7 +157,7 @@
 			\ifnum \value{showProgressBar}>0\relax%
 				% the the progress bar icon in the middle of the screen
 				\draw[fill=ExecusharesGrey,draw=none] (0cm,0cm) rectangle(12.8cm,0.25cm);
-				\draw[fill=ExecusharesRed,draw=none] (0cm,0cm) rectangle(\progressbar@tmpdim,0.25cm);
+				\draw[fill=FeecLogoBlue,draw=none] (0cm,0cm) rectangle(\progressbar@tmpdim,0.25cm);
 
 				% bottom information
 				\node[anchor=south west] at(0cm,0.25cm) {\color{ExecusharesGrey}\tiny\insertsection};
@@ -177,7 +201,7 @@
 		% set up the entire slide as the canvas
 		\useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
 		\fill[color=ExecusharesWhite] (-1cm, 1cm) rectangle(11.8cm, 9.8cm);
-		\fill[color=ExecusharesRed] (-1cm, 3.9cm) rectangle(11.8cm, 5.9cm);
+		\fill[color=FeecLogoBlue] (-1cm, 3.9cm) rectangle(11.8cm, 5.9cm);
 		\node[text width=11.8cm,align=center] at (5.4cm, 4.9cm) {\color{ExecusharesWhite}\Huge\textbf{\insertsection}};
 	\end{tikzpicture}
 }
